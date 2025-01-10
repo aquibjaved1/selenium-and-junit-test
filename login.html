@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script>
+        function showWelcomeMessage(event) {
+            event.preventDefault(); // Prevent form submission (for testing)
+            // Show the welcome message after form submission
+            document.getElementById("welcomeMessage").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="showWelcomeMessage(event)">
+        <input type="text" id="username" name="username" placeholder="Enter your username">
+        <input type="password" id="password" name="password" placeholder="Enter your password">
+        <button type="submit" id="loginButton">Login</button>
+    </form>
+    <div id="welcomeMessage" style="display:none;">Welcome, User!</div>
+</body>
+</html>
+
