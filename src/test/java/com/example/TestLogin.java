@@ -21,7 +21,7 @@ public class TestLogin {
         ChromeOptions options = new ChromeOptions();
 
         // Add options for headless mode and other settings
-        // options.addArguments("--headless"); // Commented out for testing, uncomment if needed
+        options.addArguments("--headless"); // Run in headless mode
         options.addArguments("--disable-gpu"); // Disable GPU (optional)
         options.addArguments("--no-sandbox"); // For Linux environments
         options.addArguments("--remote-debugging-port=9222");
@@ -46,7 +46,7 @@ public class TestLogin {
         driver.get("file:///root/selenium-junit/login.html");
 
         // Wait for the login form to be visible
-        WebDriverWait waitForLoginForm = new WebDriverWait(driver, Duration.ofSeconds(120)); // This is deprecated in Selenium 4
+        WebDriverWait waitForLoginForm = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement loginForm = waitForLoginForm.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginForm")));
 
         // Find and fill the username field
@@ -65,7 +65,7 @@ public class TestLogin {
 
         // Wait for the welcome message to become visible
         System.out.println("Waiting for the welcome message to appear...");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15)); // Update to use Duration
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         WebElement welcomeMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("welcomeMessage")));
 
         // Assert that the welcome message is displayed
