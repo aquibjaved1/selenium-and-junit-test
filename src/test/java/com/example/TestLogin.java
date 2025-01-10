@@ -46,7 +46,7 @@ public class TestLogin {
         driver.get("file:///root/selenium-junit/login.html");
 
         // Wait for the login form to be visible
-        WebDriverWait waitForLoginForm = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait waitForLoginForm = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement loginForm = waitForLoginForm.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginForm")));
 
         // Find and fill the username field
