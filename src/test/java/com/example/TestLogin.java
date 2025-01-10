@@ -21,12 +21,13 @@ public class TestLogin {
         ChromeOptions options = new ChromeOptions();
 
         // Add options for headless mode and other settings
-        options.addArguments("--headless"); // Run in headless mode
+        options.addArguments("--headless"); // Run in headless mode (you can try removing this for troubleshooting)
         options.addArguments("--disable-gpu"); // Disable GPU (optional)
         options.addArguments("--no-sandbox"); // For Linux environments
         options.addArguments("--remote-debugging-port=9222");
         options.addArguments("--disable-dev-shm-usage");  // This can help on low-memory environments.
         options.addArguments("--remote-allow-origins=*"); // Prevent connection issues with newer Chrome versions
+        options.addArguments("--disable-software-rasterizer"); // Helps with rendering in headless mode
 
         // Initialize ChromeDriver with the options
         driver = new ChromeDriver(options);
@@ -65,7 +66,7 @@ public class TestLogin {
 
         // Wait for the welcome message to become visible
         System.out.println("Waiting for the welcome message to appear...");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30)); // Increased wait time
         WebElement welcomeMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("welcomeMessage")));
 
         // Assert that the welcome message is displayed
