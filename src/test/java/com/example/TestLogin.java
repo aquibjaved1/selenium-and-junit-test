@@ -21,7 +21,6 @@ public class TestLogin {
         ChromeOptions options = new ChromeOptions();
 
         // Add options for headless mode and other settings
-        options.addArguments("--headless"); // Run in headless mode (you can try removing this for troubleshooting)
         options.addArguments("--disable-gpu"); // Disable GPU (optional)
         options.addArguments("--no-sandbox"); // For Linux environments
         options.addArguments("--remote-debugging-port=9222");
@@ -45,6 +44,10 @@ public class TestLogin {
         // Load the local HTML file
         System.out.println("Loading the login page...");
         driver.get("file:///root/selenium-junit/login.html");
+
+        // Wait for the page to load completely
+        WebDriverWait waitForPageLoad = new WebDriverWait(driver, Duration.ofSeconds(30));
+        waitForPageLoad.until(driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
 
         // Wait for the login form to be visible
         WebDriverWait waitForLoginForm = new WebDriverWait(driver, Duration.ofSeconds(30));
