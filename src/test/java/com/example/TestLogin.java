@@ -33,7 +33,7 @@ public class TestLogin {
         driver = new ChromeDriver(options);
 
         // Set implicit wait time
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(200));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         System.out.println("Test environment setup complete.");
     }
