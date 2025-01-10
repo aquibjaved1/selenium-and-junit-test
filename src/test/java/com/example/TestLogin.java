@@ -45,6 +45,10 @@ public class TestLogin {
         System.out.println("Loading the login page...");
         driver.get("file:///root/selenium-junit/login.html");
 
+        // Wait for the login form to be visible
+        WebDriverWait waitForLoginForm = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement loginForm = waitForLoginForm.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginForm")));
+
         // Find and fill the username field
         System.out.println("Entering username...");
         WebElement usernameField = driver.findElement(By.id("username"));
@@ -55,10 +59,9 @@ public class TestLogin {
         WebElement passwordField = driver.findElement(By.id("password"));
         passwordField.sendKeys("password123");
 
-        // Find and click the login button
-        System.out.println("Clicking the login button...");
-        WebElement loginButton = driver.findElement(By.id("loginButton"));
-        loginButton.click();
+        // Submit the form instead of clicking the login button
+        System.out.println("Submitting the login form...");
+        loginForm.submit();
 
         // Wait for the welcome message to become visible
         System.out.println("Waiting for the welcome message to appear...");
@@ -82,4 +85,3 @@ public class TestLogin {
         System.out.println("Test environment cleanup complete.");
     }
 }
-
