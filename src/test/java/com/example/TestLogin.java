@@ -21,12 +21,10 @@ public class TestLogin {
         ChromeOptions options = new ChromeOptions();
 
         // Add options for headless mode and other settings
-        options.addArguments("--disable-gpu"); // Disable GPU (optional)
+        options.addArguments("--disable-gpu"); // Disable GPU
         options.addArguments("--no-sandbox"); // For Linux environments
-        options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("--disable-dev-shm-usage");  // This can help on low-memory environments.
-        options.addArguments("--remote-allow-origins=*"); // Prevent connection issues with newer Chrome versions
-        options.addArguments("--disable-software-rasterizer"); // Helps with rendering in headless mode
+        options.addArguments("--headless"); // Run in headless mode (optional, remove if GUI is needed)
+        options.addArguments("--disable-dev-shm-usage"); // Prevent shared memory issues
 
         // Initialize ChromeDriver with the options
         driver = new ChromeDriver(options);
@@ -41,48 +39,53 @@ public class TestLogin {
     public void testLogin() {
         System.out.println("Starting testLogin...");
 
-        // Load the local HTML file
-        System.out.println("Loading the login page...");
-        driver.get("file:///root/selenium-junit/login.html");
+        try {
+            // Load the local HTML file
+            System.out.println("Loading the login page...");
+            driver.get("file:///root/selenium-junit/login.html");
 
-        // Wait for the page to load completely
-        WebDriverWait waitForPageLoad = new WebDriverWait(driver, Duration.ofSeconds(30));
-        waitForPageLoad.until(driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
+            // Wait for the page to load completely
+            new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
 
-        // Wait for the login form to be visible
-        WebDriverWait waitForLoginForm = new WebDriverWait(driver, Duration.ofSeconds(30));
-        WebElement loginForm = waitForLoginForm.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginForm")));
+            // Wait for the login form to be visible
+            WebElement loginForm = new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("loginForm")));
 
-        // Find and fill the username field
-        System.out.println("Entering username...");
-        WebElement usernameField = driver.findElement(By.id("username"));
-        usernameField.sendKeys("testuser");
+            // Find and fill the username field
+            System.out.println("Entering username...");
+            WebElement usernameField = driver.findElement(By.id("username"));
+            usernameField.sendKeys("testuser");
 
-        // Find and fill the password field
-        System.out.println("Entering password...");
-        WebElement passwordField = driver.findElement(By.id("password"));
-        passwordField.sendKeys("password123");
+            // Find and fill the password field
+            System.out.println("Entering password...");
+            WebElement passwordField = driver.findElement(By.id("password"));
+            passwordField.sendKeys("password123");
 
-        // Submit the form instead of clicking the login button
-        System.out.println("Submitting the login form...");
-        loginForm.submit();
+            // Submit the form
+            System.out.println("Submitting the login form...");
+            loginForm.submit();
 
-        // Wait for the welcome message to become visible
-        System.out.println("Waiting for the welcome message to appear...");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30)); // Increased wait time
-        WebElement welcomeMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("welcomeMessage")));
+            // Wait for the welcome message to appear
+            System.out.println("Waiting for the welcome message to appear...");
+            WebElement welcomeMessage = new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("welcomeMessage")));
 
-        // Assert that the welcome message is displayed
-        System.out.println("Asserting that the welcome message is displayed...");
-        Assertions.assertTrue(welcomeMessage.isDisplayed(), "Welcome message should be displayed after login.");
+            // Assert that the welcome message is displayed
+            System.out.println("Asserting that the welcome message is displayed...");
+            Assertions.assertTrue(welcomeMessage.isDisplayed(), "Welcome message should be displayed after login.");
 
-        System.out.println("testLogin completed successfully!");
+            System.out.println("testLogin completed successfully!");
+        } catch (Exception e) {
+            System.err.println("An error occurred during the test: " + e.getMessage());
+            e.printStackTrace();
+            Assertions.fail("Test failed due to an exception.");
+        }
     }
 
     @AfterEach
     public void tearDown() {
         System.out.println("Tearing down the test environment...");
-        // Close the browser
         if (driver != null) {
             driver.quit();
         }
