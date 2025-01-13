@@ -15,7 +15,7 @@ public class TestLogin {
     public void setUp() {
         System.out.println("Setting up the test environment...");
         // Set the path to the ChromeDriver
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium-browser/chromedriver");
 
         // Initialize ChromeOptions
         ChromeOptions options = new ChromeOptions();
