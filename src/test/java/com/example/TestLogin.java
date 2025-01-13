@@ -25,6 +25,9 @@ public class TestLogin {
         options.addArguments("--no-sandbox"); // For Linux environments
         options.addArguments("--headless"); // Run in headless mode (optional, remove if GUI is needed)
         options.addArguments("--disable-dev-shm-usage"); // Prevent shared memory issues
+      
+// Remove headless for debugging
+
 
         // Initialize ChromeDriver with the options
         driver = new ChromeDriver(options);
@@ -42,7 +45,7 @@ public class TestLogin {
         try {
             // Load the local HTML file
             System.out.println("Loading the login page...");
-            driver.get("file:///root/selenium-junit/login.html");
+            driver.get("file:///var/lib/jenkins/workspace/selenium/login.html");
 
             // Wait for the page to load completely
             new WebDriverWait(driver, Duration.ofSeconds(30))
