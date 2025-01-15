@@ -21,6 +21,7 @@ public class TestLogin {
         ChromeOptions options = new ChromeOptions();
 
         // Add options for headless mode and other settings
+        options.setBinary("/usr/bin/google-chrome");
         options.addArguments("--disable-gpu"); // Disable GPU
         options.addArguments("--no-sandbox"); // For Linux environments
         options.addArguments("--headless"); // Run in headless mode (optional, remove if GUI is needed)
