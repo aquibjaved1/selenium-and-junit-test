@@ -23,7 +23,7 @@ public class TestLogin {
         // Add options for headless mode and other settings
         options.addArguments("--disable-gpu"); // Disable GPU
         options.addArguments("--no-sandbox"); // For Linux environments
-        // options.addArguments("--headless"); // Run in headless mode (optional, remove if GUI is needed)
+        options.addArguments("--headless"); // Run in headless mode (optional, remove if GUI is needed)
         options.addArguments("--disable-dev-shm-usage"); // Prevent shared memory issues
       
 // Remove headless for debugging
@@ -33,7 +33,7 @@ public class TestLogin {
         driver = new ChromeDriver(options);
 
         // Set implicit wait time
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 
         System.out.println("Test environment setup complete.");
     }
