@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,8 +15,9 @@ public class TestLogin {
     @BeforeEach
     public void setUp() {
         System.out.println("Setting up the test environment...");
-        // Set the path to the ChromeDriver
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+
+        // Automatically manage ChromeDriver using WebDriverManager
+        WebDriverManager.chromedriver().setup();
 
         // Initialize ChromeOptions
         ChromeOptions options = new ChromeOptions();
